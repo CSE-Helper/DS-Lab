@@ -15,7 +15,7 @@
 ## [qn 13 = Kruskal’s algorithm (Flipkart)](https://github.com/CSE-Helper/DS-Lab/blob/main/Codes/qn13.c)
 ## [qn 14 = Binary Heap (ABC Company)](https://github.com/CSE-Helper/DS-Lab/blob/main/Codes/qn14.c)
 ## [qn 15 = Hash table (Seperate Chaining)](https://github.com/CSE-Helper/DS-Lab/blob/main/Codes/qn15.c)
-## [qn 16 = Kruskal’s algorithm (William Carter)](https://github.com/TCSE-Helper/DS-Lab/blob/main/Codes/qn16.c)
+## [qn 16 = Kruskal’s algorithm (William Carter)](https://github.com/CSE-Helper/DS-Lab/blob/main/Codes/qn16.c)
 ## [qn 17 = Hash table (Library)](https://github.com/CSE-Helper/DS-Lab/blob/main/Codes/qn17.c)
 ## [qn 18 = Hash table (ABC Company)](https://github.com/CSE-Helper/DS-Lab/blob/main/Codes/qn18.c)
 ## [qn 19 = Dijkstra’s algorithm (Government Agency)](https://github.com/CSE-Helper/DS-Lab/blob/main/Codes/qn19.c)
