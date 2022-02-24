@@ -136,3 +136,104 @@ int main() {
 
    return 0;
 }
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+   
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#define max 10
+
+
+struct vertex {
+   char data;
+   int visited;
+};
+
+struct vertex *v[max];
+int arr[max][max];
+int no_v=0;
+
+int queue[max];
+int front=0;
+int rear=-1;
+int no_q=0;
+
+void add_vertex(char ch){
+    struct vertex* vtx=(struct vertex*)malloc(sizeof(struct vertex));
+    vtx->data=ch;
+    vtx->visited=0;
+    v[no_v++]=vtx;
+}
+
+void add_edge(int start ,int end){
+    arr[start][end]=1;
+    arr[end][start]=1;
+}
+
+
+void  display(int num){
+    printf("%c ",v[num]->data);
+}
+
+void insert(int data){
+    queue[++rear]=data;
+    no_q++;
+}
+
+int dequeue(){
+    no_q--;
+    return queue[++front];
+}
+
+int isEmpty(){
+    if(no_q==0){
+        return 1;
+    }
+    else{
+        return 0;
+    }
+}
+
+int get_adg_vertex(int num){
+    for(int i=0;i<no_v;i++){
+        if((arr[num][i]==1) && (v[i]->visited == 0)){
+            return i;
+        }
+    }
+    return -1;
+}
+
+void bfs(){
+    v[0]->visited=1;
+    display(0);
+    insert(0);
+    int pos;
+    while(isEmpty !=0){
+         int st = dequeue();
+
+        while((pos=get_adg_vertex(st)) != -1){
+            v[pos]->visited=1;
+            display(pos);
+            insert(pos);
+        }
+    }
+}
+
+int main(){
+
+    add_vertex('A');
+    add_vertex('B');
+    add_vertex('C');
+    add_vertex('D');
+    add_vertex('E');
+
+    add_edge(0,1);
+    add_edge(0,2);
+    add_edge(0,3);
+    add_edge(1,3);
+    add_edge(2,4);
+    add_edge(3,4);
+
+    bfs();
+}
