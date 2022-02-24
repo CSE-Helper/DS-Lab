@@ -1,112 +1,64 @@
-#include<stdio.h>
-
-#define MAX 30
-
-typedef struct edge
-{
-    int u,v,w;
-}edge;
-
-typedef struct edgelist
-{
-    edge data[MAX];
-    int n;
-}edgelist;
-
-edgelist elist;
-
-int G[MAX][MAX],n;
-edgelist spanlist;
-
-void kruskal();
-int find(int belongs[],int vertexno);
-void union1(int belongs[],int c1,int c2);
-void sort();
-void print();
-
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+int i, j, k, a, b, u, v, n, ne = 1;
+int min, mincost = 0, cost[9][9], parent[9];
+int find(int);
+int uni(int, int);
 void main()
 {
-    int i,j,total_cost;
-    printf("\t\tkruskal's Algorithm\n\n");
-    printf("\nEnter number of vertices:");
-    scanf("%d",&n);
-    printf("\nEnter the adjacency matrix:\n");
-    for(i=0;i<n;i++)
-        for(j=0;j<n;j++)
-            scanf("%d",&G[i][j]);
-    kruskal();
-    print();
+	printf("\n\tImplementation of Kruskal's Algorithm\n");
+	printf("\nEnter the no. of vertices:");
+	scanf("%d", &n);
+	printf("\nEnter the cost adjacency matrix:\n");
+	for (i = 1; i <= n; i++)
+	{
+		for (j = 1; j <= n; j++)
+		{
+			scanf("%d", &cost[i][j]);
+			if (cost[i][j] == 0)
+				cost[i][j] = 999;
+		}
+	}
+	printf("The edges of Minimum Cost Spanning Tree are\n");
+	while (ne < n)
+	{
+		for (i = 1, min = 999; i <= n; i++)
+		{
+			for (j = 1; j <= n; j++)
+			{
+				if (cost[i][j] < min)
+				{
+					min = cost[i][j];
+					a = u = i;
+					b = v = j;
+				}
+			}
+		}
+		u = find(u);
+		v = find(v);
+		if (uni(u, v))
+		{
+			printf("%d edge (%d,%d) =%d\n", ne++, a, b, min);
+			mincost += min;
+		}
+		cost[a][b] = cost[b][a] = 999;
+	}
+	printf("\n\tMinimum cost = %d\n", mincost);
+	getch();
 }
-
-void kruskal()
+int find(int i)
 {
-    int belongs[MAX],i,j,cno1,cno2;
-    elist.n=0;
-
-    for(i=1;i<n;i++)
-        for(j=0;j<i;j++)
-        {
-            if(G[i][j]!=0)
-            {
-                elist.data[elist.n].u=i;
-                elist.data[elist.n].v=j;
-                elist.data[elist.n].w=G[i][j];
-                elist.n++;
-            }
-        }
-
-    sort();
-    for(i=0;i<n;i++)
-        belongs[i]=i;
-    spanlist.n=0;
-    for(i=0;i<elist.n;i++)
-    {
-        cno1=find(belongs,elist.data[i].u);
-        cno2=find(belongs,elist.data[i].v);
-    if(cno1!=cno2)
-    {
-        spanlist.data[spanlist.n]=elist.data[i];
-        spanlist.n=spanlist.n+1;
-        union1(belongs,cno1,cno2);
-    }
-    }
+	while (parent[i])
+		i = parent[i];
+	return i;
 }
-
-int find(int belongs[],int vertexno)
+int uni(int i, int j)
 {
-    return(belongs[vertexno]);
-}
-
-void union1(int belongs[],int c1,int c2)
-{
-    int i;
-    for(i=0;i<n;i++)
-    if(belongs[i]==c2)
-    belongs[i]=c1;
-}
-
-void sort()
-{
-    int i,j;
-    edge temp;
-    for(i=1;i<elist.n;i++)
-        for(j=0;j<elist.n-1;j++)
-            if(elist.data[j].w>elist.data[j+1].w)
-            {
-                temp=elist.data[j];
-                elist.data[j]=elist.data[j+1];
-                elist.data[j+1]=temp;
-            }
-}
-
-void print()
-{
-    int i,cost=0;
-    for(i=0;i<spanlist.n;i++)
-    {
-        printf("\n%d\t%d\t%d",spanlist.data[i].u,spanlist.data[i].v,spanlist.data[i].w);
-        cost=cost+spanlist.data[i].w;
-    }
-
-    printf("\n\nCost of the spanning tree=%d",cost);
+	if (i != j)
+	{
+		parent[j] = i;
+		return 1;
+	}
+	return 0;
 }
